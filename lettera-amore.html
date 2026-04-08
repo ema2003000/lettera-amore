@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>❤️ Lettera d&#39;Amore ❤️</title>
+  <style>
+    :root {
+      --gold: #d4af37;
+      --gold-soft: #f6e29a;
+      --text: #f7f2df;
+      --muted: #e8dbad;
+      --panel: rgba(9, 9, 12, 0.84);
+      --border: rgba(212, 175, 55, 0.48);
+      --shadow: rgba(212, 175, 55, 0.22);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(212,175,55,0.18), transparent 25%),
+        radial-gradient(circle at top right, rgba(212,175,55,0.16), transparent 22%),
+        radial-gradient(circle at bottom left, rgba(212,175,55,0.16), transparent 22%),
+        radial-gradient(circle at bottom right, rgba(212,175,55,0.18), transparent 25%),
+        linear-gradient(135deg, #020202 0%, #0a0a0d 45%, #050505 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 36px 18px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    body::before {
+      background:
+        radial-gradient(circle at 10% 20%, rgba(255,215,100,0.18) 0 2px, transparent 3px),
+        radial-gradient(circle at 85% 15%, rgba(255,215,100,0.14) 0 2px, transparent 3px),
+        radial-gradient(circle at 20% 80%, rgba(255,215,100,0.12) 0 2px, transparent 3px),
+        radial-gradient(circle at 75% 75%, rgba(255,215,100,0.16) 0 2px, transparent 3px),
+        radial-gradient(circle at 50% 50%, rgba(255,215,100,0.08) 0 1px, transparent 2px);
+      background-size: 220px 220px;
+      opacity: 0.7;
+    }
+
+    body::after {
+      background:
+        linear-gradient(120deg, transparent 0%, rgba(212,175,55,0.18) 12%, transparent 24%) top left / 55% 180px no-repeat,
+        linear-gradient(-120deg, transparent 0%, rgba(212,175,55,0.18) 12%, transparent 24%) top right / 55% 180px no-repeat,
+        linear-gradient(60deg, transparent 0%, rgba(212,175,55,0.16) 12%, transparent 24%) bottom left / 55% 180px no-repeat,
+        linear-gradient(-60deg, transparent 0%, rgba(212,175,55,0.16) 12%, transparent 24%) bottom right / 55% 180px no-repeat;
+      opacity: 0.9;
+    }
+
+    .letter {
+      width: min(920px, 100%);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      padding: 42px 38px;
+      box-shadow:
+        0 24px 80px rgba(0, 0, 0, 0.48),
+        0 0 28px var(--shadow),
+        inset 0 0 0 1px rgba(255, 232, 160, 0.08);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(4px);
+    }
+
+    .letter::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(212,175,55,0.15);
+      border-radius: 18px;
+      pointer-events: none;
+    }
+
+    h1 {
+      margin: 0;
+      text-align: center;
+      color: var(--gold-soft);
+      font-size: clamp(2.1rem, 5vw, 3.6rem);
+      text-shadow: 0 0 18px rgba(212,175,55,0.18);
+      letter-spacing: 1px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 1.02rem;
+      letter-spacing: 0.04em;
+    }
+
+    .divider {
+      width: min(320px, 80%);
+      height: 1px;
+      margin: 18px auto 28px;
+      background: linear-gradient(
+        90deg,
+        rgba(212,175,55,0),
+        rgba(212,175,55,0.85),
+        rgba(212,175,55,0)
+      );
+      position: relative;
+    }
+
+    .divider::after {
+      content: "❤";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -56%);
+      color: var(--gold-soft);
+      background: rgba(9, 9, 12, 0.96);
+      padding: 0 10px;
+      font-size: 1rem;
+    }
+
+    .content {
+      font-size: clamp(1.04rem, 1.7vw, 1.28rem);
+      line-height: 1.74;
+    }
+
+    .content p {
+      margin: 0 0 18px 0;
+    }
+
+    .opening {
+      font-size: 1.1em;
+    }
+
+    .highlight {
+      color: var(--gold-soft);
+      font-weight: 700;
+      font-size: 1.08em;
+    }
+
+    .signature {
+      text-align: center;
+      color: var(--gold-soft);
+      font-size: clamp(1.45rem, 3vw, 2.2rem);
+      font-style: italic;
+      margin-top: 28px;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      margin-top: 14px;
+      font-size: 0.98rem;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 18px 10px;
+      }
+
+      .letter {
+        padding: 28px 20px;
+        border-radius: 20px;
+      }
+
+      .content {
+        line-height: 1.64;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="letter">
+    <h1>❤️ Lettera d&#39;Amore ❤️</h1>
+    <div class="subtitle">20 Aprile 2026 • 1 anno e 5 mesi insieme</div>
+    <div class="divider"></div>
+
+    <section class="content">
+      <p class="opening"><strong>Amore mio bellissimo,</strong></p>
+<p>oggi è il 20 aprile e finalmente abbiamo compiuto un anno e cinque mesi insieme. Ne abbiamo passate moltissime: giornate super felici e piene di gioia, e giornate dove ogni singolo giorno litigavamo dalla mattina alla sera.</p>
+<p>Ma eccoci qui, guardando indietro, sono felice di aver scelto te. Spero che questo sia solo l&#39;inizio della nostra lunga avventura insieme. ❤️</p>
+<p>Voglio strapparti un mega sorriso ogni giorno della tua vita, perché il tuo sorriso non ha prezzo, nessuna cosa al mondo lo supera in bellezza. Tutte le volte che siamo in chiamata il mio cuoricino è super felice per sentire la tua vocina che mi parla e mi fa sentire amato e così vicino a te.</p>
+<p>Quest&#39;estate questo vuoto accanto a me scomparirà e ti avrò di persona al mio fianco. Non hai idea di quanto lo sogno e di quanto lo vorrei il prima possibile. 🌙</p>
+<p>Sei una ragazza dal cuore d&#39;oro. Sto provando a farti capire che con me puoi aprirti e fidarti, anche se qualche volta non lo fai, e l&#39;ho accettato. Mi ricordo come se fosse ieri la prima volta che ti avevo vista su Roblox, e da quella volta non sapevo che la mia vita sarebbe cambiata per sempre. ✨</p>
+<p>Ci sono state giornate molto intense, ci siamo fatti arrabbiare a vicenda, ma ci siamo sempre perdonati. Mi auguro che rimarremo leali e che nessuna terza persona verrà mai a rovinare il nostro amore.</p>
+<p class="highlight">Ricordati che ti amo più di qualsiasi altra cosa, e che il mio amore per te è infinito, molto più grande del tuo. 💛</p>
+<p>Ti riempirei di infiniti bacini fossi qui, ma per quello ormai manca poco. Non vedo l&#39;ora di vederti. Grazie ancora per tutto, amore mio. ❤️</p>
+<div class="signature">Il tuo cucciolotto, Emanuele 🐾</div>
+      <div class="footer">Con tutto il mio amore ❤️</div>
+    </section>
+  </main>
+</body>
+</html>
