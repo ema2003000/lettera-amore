@@ -9,15 +9,23 @@
     :root {
       --gold: #d4af37;
       --gold-soft: #f6e29a;
+      --gold-bright: #ffe7a6;
       --text: #f7f2df;
       --muted: #e8dbad;
-      --panel: rgba(9, 9, 12, 0.84);
-      --border: rgba(212, 175, 55, 0.48);
-      --shadow: rgba(212, 175, 55, 0.22);
+      --panel: rgba(9, 9, 12, 0.88);
+      --border: rgba(212, 175, 55, 0.42);
+      --shadow: rgba(212, 175, 55, 0.18);
+      --bg1: #020202;
+      --bg2: #0a0a0d;
+      --bg3: #050505;
     }
 
     * {
       box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -26,165 +34,514 @@
       font-family: Georgia, "Times New Roman", serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, rgba(212,175,55,0.18), transparent 25%),
-        radial-gradient(circle at top right, rgba(212,175,55,0.16), transparent 22%),
-        radial-gradient(circle at bottom left, rgba(212,175,55,0.16), transparent 22%),
-        radial-gradient(circle at bottom right, rgba(212,175,55,0.18), transparent 25%),
-        linear-gradient(135deg, #020202 0%, #0a0a0d 45%, #050505 100%);
+        radial-gradient(circle at top left, rgba(212,175,55,0.16), transparent 25%),
+        radial-gradient(circle at top right, rgba(212,175,55,0.12), transparent 22%),
+        radial-gradient(circle at bottom left, rgba(212,175,55,0.10), transparent 22%),
+        radial-gradient(circle at bottom right, rgba(212,175,55,0.15), transparent 26%),
+        linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 45%, var(--bg3) 100%);
       display: flex;
       justify-content: center;
-      align-items: center;
-      padding: 36px 18px;
+      align-items: flex-start;
+      padding: 40px 18px;
+      overflow-x: hidden;
+      position: relative;
     }
 
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::before {
+      background:
+        radial-gradient(circle at 10% 20%, rgba(255, 220, 120, 0.16) 0 2px, transparent 3px),
+        radial-gradient(circle at 85% 15%, rgba(255, 220, 120, 0.12) 0 2px, transparent 3px),
+        radial-gradient(circle at 22% 78%, rgba(255, 220, 120, 0.10) 0 2px, transparent 3px),
+        radial-gradient(circle at 75% 72%, rgba(255, 220, 120, 0.14) 0 2px, transparent 3px),
+        radial-gradient(circle at 50% 50%, rgba(255, 220, 120, 0.06) 0 1px, transparent 2px);
+      background-size: 240px 240px;
+      opacity: 0.75;
+      animation: shimmer 18s linear infinite;
+    }
+
+    body::after {
+      background:
+        linear-gradient(120deg, transparent 0%, rgba(212,175,55,0.12) 12%, transparent 24%) top left / 55% 180px no-repeat,
+        linear-gradient(-120deg, transparent 0%, rgba(212,175,55,0.10) 12%, transparent 24%) top right / 55% 180px no-repeat,
+        linear-gradient(60deg, transparent 0%, rgba(212,175,55,0.08) 12%, transparent 24%) bottom left / 55% 180px no-repeat,
+        linear-gradient(-60deg, transparent 0%, rgba(212,175,55,0.10) 12%, transparent 24%) bottom right / 55% 180px no-repeat;
+      opacity: 0.95;
+    }
+
+    .floating-hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -40px;
+      color: rgba(255, 230, 170, 0.14);
+      font-size: 18px;
+      animation: floatUp linear infinite;
+      user-select: none;
+    }
+
+    .heart:nth-child(1) { left: 8%;  animation-duration: 15s; animation-delay: 0s; }
+    .heart:nth-child(2) { left: 18%; animation-duration: 19s; animation-delay: 3s; }
+    .heart:nth-child(3) { left: 30%; animation-duration: 17s; animation-delay: 1s; }
+    .heart:nth-child(4) { left: 42%; animation-duration: 21s; animation-delay: 6s; }
+    .heart:nth-child(5) { left: 55%; animation-duration: 16s; animation-delay: 2s; }
+    .heart:nth-child(6) { left: 68%; animation-duration: 20s; animation-delay: 7s; }
+    .heart:nth-child(7) { left: 80%; animation-duration: 18s; animation-delay: 4s; }
+    .heart:nth-child(8) { left: 91%; animation-duration: 22s; animation-delay: 5s; }
+
     .letter {
-      width: min(920px, 100%);
+      width: min(1020px, 100%);
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 26px;
-      padding: 42px 38px;
+      border-radius: 30px;
+      padding: 52px 44px;
       box-shadow:
-        0 24px 80px rgba(0, 0, 0, 0.48),
-        0 0 28px var(--shadow);
+        0 24px 80px rgba(0, 0, 0, 0.50),
+        0 0 30px var(--shadow),
+        inset 0 0 0 1px rgba(255, 232, 160, 0.06);
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      backdrop-filter: blur(5px);
+      animation: fadeInUp 1.1s ease both;
+    }
+
+    .letter::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(212, 175, 55, 0.14);
+      border-radius: 22px;
+      pointer-events: none;
+    }
+
+    .letter::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top center, rgba(255,232,160,0.08), transparent 36%);
+      pointer-events: none;
     }
 
     h1 {
       margin: 0;
       text-align: center;
       color: var(--gold-soft);
-      font-size: 2.8rem;
+      font-size: clamp(2.3rem, 5vw, 3.9rem);
+      letter-spacing: 1px;
+      text-shadow:
+        0 0 10px rgba(212,175,55,0.18),
+        0 0 24px rgba(212,175,55,0.08);
+      animation: glowPulse 4s ease-in-out infinite;
     }
 
     .subtitle {
       text-align: center;
-      margin-top: 8px;
+      margin-top: 10px;
       color: var(--muted);
+      font-size: 1.02rem;
+      letter-spacing: 0.04em;
     }
 
     .divider {
-      margin: 20px auto;
+      margin: 24px auto 34px;
       height: 1px;
-      width: 70%;
-      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      width: min(360px, 80%);
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(212, 175, 55, 0.95),
+        transparent
+      );
+      position: relative;
+    }
+
+    .divider::after {
+      content: "❤";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -56%);
+      background: rgba(9, 9, 12, 0.96);
+      color: var(--gold-soft);
+      padding: 0 12px;
+      font-size: 1rem;
+      text-shadow: 0 0 10px rgba(212,175,55,0.22);
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
     }
 
     .content p {
-      margin-bottom: 18px;
-      line-height: 1.7;
+      margin: 0 0 22px 0;
+      line-height: 1.85;
+      font-size: clamp(1.04rem, 1.4vw, 1.22rem);
+      color: var(--text);
+      text-shadow: 0 1px 1px rgba(0,0,0,0.18);
+      opacity: 0;
+      transform: translateY(10px);
+      animation: revealParagraph 0.85s ease forwards;
+    }
+
+    .content p:nth-of-type(1)  { animation-delay: 0.08s; }
+    .content p:nth-of-type(2)  { animation-delay: 0.12s; }
+    .content p:nth-of-type(3)  { animation-delay: 0.16s; }
+    .content p:nth-of-type(4)  { animation-delay: 0.20s; }
+    .content p:nth-of-type(5)  { animation-delay: 0.24s; }
+    .content p:nth-of-type(6)  { animation-delay: 0.28s; }
+    .content p:nth-of-type(7)  { animation-delay: 0.32s; }
+    .content p:nth-of-type(8)  { animation-delay: 0.36s; }
+    .content p:nth-of-type(9)  { animation-delay: 0.40s; }
+    .content p:nth-of-type(10) { animation-delay: 0.44s; }
+    .content p:nth-of-type(11) { animation-delay: 0.48s; }
+    .content p:nth-of-type(12) { animation-delay: 0.52s; }
+    .content p:nth-of-type(13) { animation-delay: 0.56s; }
+    .content p:nth-of-type(14) { animation-delay: 0.60s; }
+    .content p:nth-of-type(15) { animation-delay: 0.64s; }
+    .content p:nth-of-type(16) { animation-delay: 0.68s; }
+    .content p:nth-of-type(17) { animation-delay: 0.72s; }
+    .content p:nth-of-type(18) { animation-delay: 0.76s; }
+    .content p:nth-of-type(19) { animation-delay: 0.80s; }
+    .content p:nth-of-type(20) { animation-delay: 0.84s; }
+    .content p:nth-of-type(21) { animation-delay: 0.88s; }
+    .content p:nth-of-type(22) { animation-delay: 0.92s; }
+    .content p:nth-of-type(23) { animation-delay: 0.96s; }
+    .content p:nth-of-type(24) { animation-delay: 1.00s; }
+    .content p:nth-of-type(25) { animation-delay: 1.04s; }
+    .content p:nth-of-type(26) { animation-delay: 1.08s; }
+    .content p:nth-of-type(27) { animation-delay: 1.12s; }
+    .content p:nth-of-type(28) { animation-delay: 1.16s; }
+
+    .opening {
+      font-size: 1.14em;
     }
 
     .highlight {
-      color: var(--gold-soft);
-      font-weight: bold;
+      color: var(--gold-bright);
+      font-weight: 700;
+      text-shadow: 0 0 10px rgba(212,175,55,0.16);
     }
 
     .signature {
       text-align: center;
-      margin-top: 30px;
-      font-size: 1.4rem;
+      margin-top: 36px;
+      font-size: clamp(1.35rem, 2.6vw, 2rem);
       color: var(--gold-soft);
       font-style: italic;
+      text-shadow: 0 0 12px rgba(212,175,55,0.14);
+      opacity: 0;
+      animation: revealParagraph 0.85s ease forwards;
+      animation-delay: 1.22s;
     }
 
     .footer {
       text-align: center;
-      margin-top: 10px;
+      margin-top: 14px;
       color: var(--muted);
+      opacity: 0;
+      animation: revealParagraph 0.85s ease forwards;
+      animation-delay: 1.28s;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes revealParagraph {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes glowPulse {
+      0%, 100% {
+        text-shadow:
+          0 0 10px rgba(212,175,55,0.18),
+          0 0 24px rgba(212,175,55,0.08);
+      }
+      50% {
+        text-shadow:
+          0 0 14px rgba(212,175,55,0.26),
+          0 0 34px rgba(212,175,55,0.12);
+      }
+    }
+
+    @keyframes shimmer {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(110vh) scale(0.9);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 0.75;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.15);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 18px 10px;
+      }
+
+      .letter {
+        padding: 28px 20px;
+        border-radius: 20px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .content p {
+        line-height: 1.72;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .content p,
+      .signature,
+      .footer {
+        opacity: 1;
+        transform: none;
+      }
     }
   </style>
 </head>
 
 <body>
+  <div class="floating-hearts" aria-hidden="true">
+    <span class="heart">❤</span>
+    <span class="heart">❤</span>
+    <span class="heart">❤</span>
+    <span class="heart">❤</span>
+    <span class="heart">❤</span>
+    <span class="heart">❤</span>
+    <span class="heart">❤</span>
+    <span class="heart">❤</span>
+  </div>
 
   <main class="letter">
-
     <h1>❤️ Lettera d'Amore ❤️</h1>
     <div class="subtitle">20 Aprile 2026 • 1 anno e 5 mesi insieme</div>
     <div class="divider"></div>
 
     <section class="content">
-
-      <p><strong>Ciao cucciola mia,</strong></p>
+      <p class="opening"><strong>Ciao cucciola mia,</strong></p>
 
       <p>
-        oggi è un giorno speciale. Non è un giorno a caso, ma la rappresentazione
-        dell’inizio del nostro viaggio. È il ricordo di come noi abbiamo iniziato
-        a fidarci l’uno dell’altra fino ad oggi.
+        oggi è un giorno speciale. Non è un giorno a caso, ma la rappresentazione dell’inizio del nostro viaggio,
+        un giorno in cui noi abbiamo generato qualcosa insieme. È il ricordo di come noi abbiamo iniziato a fidarci
+        l’uno dell’altra fino ad oggi.
       </p>
 
       <p>
-        È stato già un lungo viaggio fino ad adesso e spero che sarà ancora molto
-        lungo, e che questo sia solo l’inizio di qualcosa di più grande che
-        costruiremo in futuro.
+        Come possiamo bene vedere e pensare, è stato già un lungo viaggio fino ad adesso e spero che sarà ancora
+        molto lungo, e che questo sia solo l’inizio di qualcosa di più grande che genereremo in futuro.
       </p>
 
       <p>
-        Come ben sai, oggi festeggiamo un anno e cinque mesi di noi. Abbiamo passato
-        tantissime avventure insieme, tra momenti felici in cui ridevamo e
-        sorridevamo sempre, e altri momenti più difficili. Nonostante tutto,
-        siamo riusciti a superarli e ad uscire più forti di prima.
+        Come ben sai, oggi festeggiamo un anno e cinque mesi di noi. Abbiamo passato tantissime avventure insieme,
+        passando da periodi felici dove ridevamo e sorridevamo sempre insieme e stavamo sempre insieme, e poi ci sono
+        stati anche periodi più bui, ma nonostante ciò siamo riusciti a superare questi brutti momenti e ad uscire
+        molto più forti di prima, imparando ad accettare i nostri lati e le nostre caratteristiche e preferenze.
       </p>
 
       <p>
-        Mi auguro che il nostro amore possa continuare a vivere per sempre,
-        perché tu sei la mia bimba, la mia cucciolotta e soprattutto l’amore
-        della mia vita. Tutto quello che faccio lo faccio per la tua felicità.
+        Mi auguro che il nostro amore possa continuare a battere e vivere per sempre e che non si spenga mai, perché
+        tu sei la mia bimba, sei la mia cucciolotta e soprattutto l’amore della mia vita. Tutto quello che faccio lo
+        faccio per la tua felicità. Se tu sei felice, sono felice anche io.
       </p>
 
       <p>
-        Voglio evitare di litigare con te. Voglio solo abbracciarti, coccolarti
-        e stare bene insieme. Anche quando sbaglio, ti chiedo scusa perché non
-        voglio mai rovinare quello che abbiamo.
+        Per questo motivo voglio evitare il più possibile di litigare con la mia bimba. Non voglio soffrire e per
+        questo motivo voglio semplicemente abbracciarti o coccolarti. Appena te la prendi con me ti chiedo sempre
+        scusa per qualsiasi cosa avrò combinato, perché davvero non voglio che il nostro amore venga rovinato per
+        sciocchezze.
       </p>
 
       <p>
-        So che a volte perdo la pazienza, ma sto facendo del mio meglio per
-        migliorare, parlarti e cercare il tuo abbraccio per stare meglio.
-        Tu sei il mio posto sicuro.
+        So che molte volte me la prendo io, magari per sciocchezze, ma sono davvero grato che anche tu abbia
+        moltissima pazienza con me e che mi capisca sia nei miei momenti felici che nei momenti tristi, soprattutto
+        anche quando ho poca pazienza.
       </p>
 
       <p>
-        Tu sei la ragazza che ho sempre desiderato e non voglio perderti.
-        Anche se a volte non lo dimostro abbastanza, ci tengo a te più di
-        qualsiasi cosa al mondo.
+        Anche se molte volte non ne ho poca, ma non per colpa tua, ammetto che appena succede qualcosa che non mi
+        piace in generale perdo la pazienza abbastanza velocemente, ma sto facendo del mio meglio per, in caso,
+        venire a parlartene oppure fare molti respiri profondi per poi chiederti un abbraccio o coccole, per tornare
+        nel mood coccolo e stare bene con me stesso e con te.
       </p>
 
       <p>
-        Voglio averti al mio fianco per sempre. Voglio costruire una famiglia
-        con te e condividere tutta la mia vita insieme a te.
+        Perché tu sei il mio posto tranquillo e voglio rilassarmi fra le tue braccia e non pensare a nulla, solo
+        pensare ad essere il ragazzo più fortunato del mondo ad averti trovata e ad essere stato in grado di averti
+        tutta per me.
+      </p>
+
+      <p>
+        Tu sei l’amore della mia vita e tutto quello che voglio è stare bene con te e poter essere tranquillo del
+        fatto che ho una ragazza che mi ama davvero con tutta se stessa e che non cerca attenzioni altrove, cosa che
+        oggi giorno molte persone fanno, ma io non voglio questo.
+      </p>
+
+      <p>
+        Voglio assicurarmi che mia moglie voglia solo me e me soltanto. So che molte volte non sono il fidanzato
+        perfetto o ideale, mentre altre volte posso sembrare quello perfetto senza difetti, ma non voglio che la
+        nostra relazione venga intaccata da fattori esterni.
+      </p>
+
+      <p>
+        Voglio stare bene con te per sempre e assicurarmi che la mia bimba raggiunga tutti i suoi traguardi nella
+        vita e che sia la donna più felice della terra, molto più felice di me, perché il tuo sorriso non ha prezzo
+        e tutto quello che voglio è solo vederti sorridere.
+      </p>
+
+      <p>
+        Infatti il tuo sorriso mi illumina le giornate e i tuoi occhi mi sciolgono l’anima e fanno sorridere il
+        bambino che ho dentro di me. E non solo, anche quando mi tratti come un bimbo piccolo, il bambino piccolo
+        dentro di me è super felice e ti vuole riempire di coccole e bacini.
+      </p>
+
+      <p>
+        Tu sei la ragazza che ho sempre desiderato e non voglio perderti. So che molte volte tu pensi che a me non
+        importi di te se ti dovessi perdere, perché magari mi avevi fatto esasperare troppe volte, ma sotto sotto,
+        anche se non lo mostro tanto, ci tengo a te.
+      </p>
+
+      <p>
+        Per questo ogni volta ti perdono e voglio tornare da te per coccolarti e per averti fra le mie braccia, per
+        farti tutti i grattini possibili e baciarti tutta e sai benissimo che lo posso fare senza problemi.
+      </p>
+
+      <p>
+        Sei l’amore della mia vita e ti voglio per sempre al mio fianco e voglio assicurarmi che tu sarai la madre
+        dei miei bimbi. Ovviamente sei la moglie che volevo così tanto, anche perché vuoi stare molto con me e questa
+        cosa mi piace moltissimo.
+      </p>
+
+      <p>
+        Perché so che ci tieni a me e amo moltissimo anche il fatto che rispecchi completamente i miei gusti sia per
+        moltissimi aspetti e sai benissimo che intendo.
       </p>
 
       <p class="highlight">
-        Ti amo infinitamente amore mio, più di qualsiasi cosa al mondo.
+        Ti amo infinitamente amore mio, sei l’amore della mia vita e lo dirò sempre. Non mi darà mai fastidio
+        dirtelo. Voglio continuare a stare con te per sempre e avere una famiglia con te e ovviamente avere dei figli
+        con te. Mi dispiace ma non avrai scelta, voglio te per creare la mia famiglia quindi ormai sei destinata a
+        darmela e sarai mia per sempre.
       </p>
 
       <p>
-        Non vedo l’ora di vederti questa estate e stringerti forte tra le mie
-        braccia. Voglio solo te, e nessun altro.
+        Oggi noi festeggiamo un altro mese insieme e anche questa volta abbiamo affrontato difficoltà e momenti belli
+        insieme. Abbiamo riso in chiamata, parlato e giocato.
       </p>
 
       <p>
-        Spero davvero che questa lettera ti abbia ricordato tutto quello che
-        siamo e tutto quello che saremo insieme.
+        Ormai ho solo in testa quest’estate, voglio troppo vederti di persona e tenerti fra le mie braccia più di
+        qualsiasi altra cosa al mondo.
       </p>
 
       <p>
-        Tu sei la luce delle mie giornate e il sorriso che mi scalda l’anima.
-        Sei unica e per questo ti amo infinitamente.
+        Forse alcune volte non lo dimostro abbastanza perché pensi che metto i miei amici al primo posto sopra di te,
+        ma fidati se tu non ci fossi nella mia vita ci sarebbe un buco dentro di me che proverei a colmare in qualche
+        modo ma non credo che ci riuscirei così bene.
+      </p>
+
+      <p>
+        Magari alcune volte sembro freddo o impassibile e senza emozioni solo perché ho paura di essere ferito da
+        commenti o reazioni strane da parte tua e non voglio più pensare che il mio amore mi attacchi. Voglio pensare
+        che d’ora in poi la mia bimba mi chiederà se avrà dubbi senza arrivare a conclusioni affrettate al primo
+        istante o che magari pensa che se qualcosa si fosse verificato nel passato allora è uguale a come sono ora le cose.
+      </p>
+
+      <p>
+        Dico questo perché magari tu pensi che io mi senta ancora o che mi scriva con persone con cui mi scrivevo in
+        passato, ma questo fatto non è vero. Ormai parlo solo con te o con i miei amici ma non con nessun altro,
+        soprattutto perché non voglio nessun altro. Sto già bene così, la mia vita con te è al completo e sono felice di ciò.
+      </p>
+
+      <p>
+        Spero veramente che questa lettera d’amore per la mia bimba e per l’amore della mia vita ti sia piaciuta e
+        che ti abbia ricordato tutto quello che abbiamo passato insieme.
+      </p>
+
+      <p>
+        Spero davvero con tutto me stesso che noi continueremo ad amarci e a volerci insieme per sempre senza
+        mentirci mai ed essendo sempre leali e onesti l’uno con l’altra.
+      </p>
+
+      <p>
+        Ti amo infinitamente molto più di quanto tu possa amare me e questo ormai lo sai già benissimo.
+      </p>
+
+      <p>
+        Mwahh e agli infiniti altri bacini che ti darò per sempre perché tu sei la luce delle mie giornate ed il
+        sorriso che mi riscalda l’anima.
+      </p>
+
+      <p>
+        Auguri ancora amore mio, spero che questa giornata e che la mia presenza nella tua vita ti possa portare
+        gioia e a raggiungere tutti i tuoi sogni e traguardi nella vita.
+      </p>
+
+      <p>
+        Ti auguro infiniti altri auguri con me e di poter continuare a sorridere con quel tuo sorriso magnetico,
+        perché quando tu sorridi non solo le tue labbra sorridono ma anche i tuoi occhi e tutti i tuoi capelli
+        sprizzano felicità.
+      </p>
+
+      <p>
+        Sei unica amore mio e per questo ti amo infinitamente.
       </p>
 
       <div class="signature">
         Il tuo amore e tuo futuro marito,<br>
-        Emanuele ❤️
+        Emanuele.
       </div>
 
-      <div class="footer">
-        Con tutto il mio amore ❤️
-      </div>
-
+      <div class="footer">Con tutto il mio amore ❤️</div>
     </section>
-
   </main>
-
 </body>
 </html>
